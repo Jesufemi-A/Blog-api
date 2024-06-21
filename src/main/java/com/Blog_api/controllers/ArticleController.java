@@ -1,37 +1,40 @@
 package com.Blog_api.controllers;
 
-import java.util.*;
-
 import com.Blog_api.model.Article;
 import com.Blog_api.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
+
 
 @RestController
-public class HomeController {
+public class ArticleController {
 
     private final ArticleService articleService;
 
-    public HomeController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
 
+    @GetMapping("/articles")
+    public List getArticles() {
+      return articleService.getArticles();
+    }
 
-//    @GetMapping({"", "/", "home"})
-//    public List home() {
-//        return articleService.getArticles();
-//    }
+    @GetMapping("articles/{id}")
+    public Article getArticlesById(@PathVariable Integer id) {
+       return articleService.getArticlesById(id);
+    }
 
-
-    @PostMapping("/addArticle")
+    @PostMapping("/article")
     public void postArticle(@RequestBody Article article) {
             articleService.addArticle(article);
         
     }
+
+
+
+
 
 
 
